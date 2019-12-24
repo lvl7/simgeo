@@ -44,3 +44,9 @@ def test_point_not_equal(point2d):
 def test_point_multiply(point2d, scale, expected):
     scaled_point = point2d * scale
     assert scaled_point == expected
+
+
+def test_add_points(point2d):
+    point_other = Point(-4, 10)
+    resolution_point = point_other + point2d
+    assert resolution_point == Point(-3, 8)

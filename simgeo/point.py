@@ -45,7 +45,20 @@ class Point:
         """
         return self.coords[coord_index]
 
-    def __mul__(self, other: float) -> "Point":
+    def __add__(self, other: "Point") -> "Point":
+        """
+        Create new point with sum of ``self`` and ``other`` corresponding coordinates.
+
+        Args:
+            other: point that will be added to ``self``
+
+        Returns:
+            new point with sum of coordinates
+
+        """
+        return Point(self.coords + other.coords)
+
+    def __mul__(self, other: Union[int, float]) -> "Point":
         """
         Scale point.
 
