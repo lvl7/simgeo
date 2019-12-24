@@ -58,6 +58,20 @@ class Point:
         """
         return Point(self.coords + other.coords)
 
+    def __iadd__(self, other: "Point") -> "Point":
+        """
+        Add corresponding coordinates from ``other`` to ``self``.
+
+        Args:
+            other: point whom coordinates will be added to self
+
+        Returns:
+            modified point
+
+        """
+        self.coords += other.coords
+        return self
+
     def __mul__(self, other: Union[int, float]) -> "Point":
         """
         Scale point.

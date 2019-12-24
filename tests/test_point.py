@@ -2,6 +2,7 @@
 import numpy as np
 
 from pytest import fixture, mark
+
 from simgeo.point import Point
 
 
@@ -50,3 +51,9 @@ def test_add_points(point2d):
     point_other = Point(-4, 10)
     resolution_point = point_other + point2d
     assert resolution_point == Point(-3, 8)
+
+
+def test_iadd_point(point2d):
+    point_other = Point(-4, 10)
+    point2d += point_other
+    assert point2d == Point(-3, 8)
