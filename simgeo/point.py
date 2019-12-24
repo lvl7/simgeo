@@ -11,14 +11,15 @@ class Point:
     Can have any number of dimensions.
     """
 
-    def __init__(self, *coords: Union[int, np.ndarray]):
+    def __init__(self, *coords: Union[int, np.ndarray], dtype=None):
         r"""
         Initialize points.
 
         Args:
             \*coords: coordinates of point
+            dtype: ensure type of coordinates. See ``numpy.dtype``.
         """
-        self.coords = self._set_coords(*coords)
+        self.coords = self._set_coords(*coords, dtype=dtype)
 
     @overload
     def __getitem__(self, coord_index: slice) -> np.ndarray:
@@ -105,7 +106,7 @@ class Point:
 
         return NotImplemented
 
-    def _set_coords(self, *coords):
+    def _set_coords(self, *coords, dtype: np.dtype = None):
         r"""
         Create numpy array from given coordinates.
 
@@ -113,6 +114,7 @@ class Point:
             \*coords: coordinates of point. Could be:
                       - list of numbers
                       - list of one np.ndarray
+            dtype: ensure type of coordinates. See ``numpy.dtype``.
 
         Returns:
              numpy array filled with coordinates
@@ -121,4 +123,4 @@ class Point:
         if len(coords) == 1 and isinstance(coords[0], np.ndarray):
             return np.copy(coords[0])
 
-        return np.array(coords)
+        return np.array(coords, dtype=dtype)
