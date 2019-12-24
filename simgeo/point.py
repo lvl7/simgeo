@@ -11,7 +11,7 @@ class Point:
     Can have any number of dimensions.
     """
 
-    def __init__(self, *coords: int):
+    def __init__(self, *coords: Union[int, np.ndarray]):
         r"""
         Initialize points.
 
@@ -21,7 +21,7 @@ class Point:
         self.coords = self._set_coords(*coords)
 
     @overload
-    def __getitem__(self, coord_index: slice) -> np.array:
+    def __getitem__(self, coord_index: slice) -> np.ndarray:
         """
         For slice coord_index np.array of coordinates should be returned.
 
@@ -45,15 +45,53 @@ class Point:
         """
         return self.coords[coord_index]
 
+    def __mul__(self, other: float) -> "Point":
+        """
+        Scale point.
+
+        Args:
+            other: magnitude
+
+        Returns:
+            new scaled point
+
+        """
+        if isinstance(other, (int, float)):
+            return Point(self.coords * other)
+
+        return NotImplemented
+
+    def __eq__(self, other: "Point") -> bool:
+        """
+        Check if given point has same coordinates.
+
+        Args:
+            other: point to compare with
+
+        Returns:
+            true - ``other`` has same coordinate,
+            false - anyway
+
+        """
+        if isinstance(other, Point):
+            return np.array_equal(self.coords, other.coords)
+
+        return NotImplemented
+
     def _set_coords(self, *coords):
         r"""
         Create numpy array from given coordinates.
 
         Args:
-            \*coords: coordinates of point
+            \*coords: coordinates of point. Could be:
+                      - list of numbers
+                      - list of one np.ndarray
 
         Returns:
              numpy array filled with coordinates
 
         """
+        if len(coords) == 1 and isinstance(coords[0], np.ndarray):
+            return np.copy(coords[0])
+
         return np.array(coords)
