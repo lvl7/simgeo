@@ -57,7 +57,10 @@ class Point:
             new point with sum of coordinates
 
         """
-        return Point(self.coords + other.coords)
+        if isinstance(other, Point):
+            return Point(self.coords + other.coords)
+
+        return NotImplemented
 
     def __iadd__(self, other: "Point") -> "Point":
         """
@@ -70,8 +73,44 @@ class Point:
             modified point
 
         """
-        self.coords += other.coords
-        return self
+        if isinstance(other, Point):
+            self.coords += other.coords
+            return self
+
+        return NotImplemented
+
+    def __sub__(self, other: "Point") -> "Point":
+        """
+        Create new point with subtract of ``self`` and ``other`` corresponding coordinates.
+
+        Args:
+            other: point that will be subtracted from ``self``
+
+        Returns:
+            new point with subtracted coordinates
+
+        """
+        if isinstance(other, Point):
+            return Point(self.coords - other.coords)
+
+        return NotImplemented
+
+    def __isub__(self, other: "Point") -> "Point":
+        """
+        Subtract corresponding ``other`` coordinates from ``self``.
+
+        Args:
+            other: point whom coordinates will be subtracted from self
+
+        Returns:
+            modified point
+
+        """
+        if isinstance(other, Point):
+            self.coords -= other.coords
+            return self
+
+        return NotImplemented
 
     def __mul__(self, other: Union[int, float]) -> "Point":
         """
