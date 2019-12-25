@@ -3,6 +3,8 @@ from typing import Union, overload
 
 import numpy as np
 
+Coord = Union[int, float]
+
 
 class Point:
     """
@@ -11,7 +13,7 @@ class Point:
     Can have any number of dimensions.
     """
 
-    def __init__(self, *coords: Union[int, np.ndarray], dtype=None):
+    def __init__(self, *coords: Union[Coord, np.ndarray], dtype=None):
         r"""
         Initialize points.
 
@@ -34,7 +36,7 @@ class Point:
 
         """
 
-    def __getitem__(self, coord_index: int) -> Union[float, int]:  # noqa: F811
+    def __getitem__(self, coord_index: int) -> Coord:  # noqa: F811
         """
         Get selected point coordinate.
 
