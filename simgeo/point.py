@@ -165,3 +165,16 @@ class Point:
             return np.copy(coords[0])
 
         return np.array(coords, dtype=dtype)
+
+    def distance(self, other: "Point") -> float:
+        """
+        Calculate Euclidea distance between given point.
+
+        Args:
+            other: point to which distance will be mesured
+
+        Returns:
+            distance to ``other``
+        """
+        return float(
+            np.sqrt(np.sum(np.square((self - other).coords))))

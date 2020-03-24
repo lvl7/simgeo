@@ -74,3 +74,7 @@ def test_isub_point(point2d):
 def test_specify_type_of_coordinates():
     point = Point(1, 2, 3, dtype=np.float64)
     assert all((isinstance(coord, np.float64) for coord in point))
+
+
+def test_distance():
+    assert Point(-1, -1).distance(Point(-1, 1)) == 2
